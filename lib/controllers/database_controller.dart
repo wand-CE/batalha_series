@@ -1,14 +1,20 @@
-import 'package:batalha_series/services/operations_firebase.dart';
+import 'package:batalha_series/services/operations_database.dart';
 import 'package:get/get.dart';
 
-class DatabaseController extends GetxController {
-  final databaseOperations = DatabaseOperationsSqflite();
+import '../models/serie_model.dart';
 
-  Future<void> addSerie(serieMap) async {
-    databaseOperations.addSerie(serieMap);
+class DatabaseController extends GetxController {
+  final operationsDatabase = OperationsDatabase();
+
+  Future<bool> addSerie(serieMap) async {
+    return await operationsDatabase.addSerie(serieMap);
   }
 
-  Future<List<dynamic>> getAllSeries() async {
-    return databaseOperations.getAllSeries();
+  Future<bool> removeSerie(int idSerie) async {
+    return await operationsDatabase.removeSerie(idSerie);
+  }
+
+  Future<List<SerieModel>> getSeries() async {
+    return operationsDatabase.getSeries();
   }
 }

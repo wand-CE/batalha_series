@@ -3,6 +3,7 @@ import 'package:batalha_series/screens/home_page.dart';
 import 'package:get/get.dart';
 
 import 'database_controller.dart';
+import 'get_series_controller.dart';
 
 class RegisterSerieController extends GetxController {
   var nome = ''.obs;
@@ -22,14 +23,14 @@ class RegisterSerieController extends GetxController {
       pontuacao.value = '';
     } else {
       double? numValue = double.tryParse(value);
-      if (numValue != null && numValue >= 1 && numValue <= 5) {
+      if (numValue != null && numValue >= 1 && numValue <= 10) {
         pontuacao.value = value; // Atualiza a pontuação
       }
     }
   }
 
   // Método para salvar os dados
-  Future<void> salvarSerie() async {
+  Future<void> saveSerie() async {
     if (nome.value.isNotEmpty &&
         genero.value.isNotEmpty &&
         descricao.value.isNotEmpty &&
@@ -45,15 +46,19 @@ class RegisterSerieController extends GetxController {
 
       print('Valor ${pontuacao.value}');
 
-      final firebaseController = Get.find<DatabaseController>();
+      final databaseController = Get.find<DatabaseController>();
 
-      await firebaseController.addSerie(serieMap);
+      final isSaved = await databaseController.addSerie(serieMap);
 
-      await Future.delayed(Duration(seconds: 2));
-
-      Get.to(HomePage());
-
-      Get.snackbar("Série", "Série cadastrada com sucesso!");
+      if (isSaved) {
+        final getSeriesController = Get.find<GetSeriesController>();
+        getSeriesController.getSeries();
+        Get.back();
+        Get.snackbar("Série", "Série cadastrada com sucesso!");
+        return;
+      } else {
+        Get.snackbar("Erro", "Não foi possível cadastrar a série!");
+      }
     } else {
       Get.snackbar("Erro", "Preencha todos os campos!");
     }

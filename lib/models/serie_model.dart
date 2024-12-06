@@ -1,40 +1,40 @@
 import 'dart:io';
+import 'package:get/get.dart';
 
 class SerieModel {
-  String idUser;
+  int? id;
   String nome;
   String genero;
   String descricao;
-  File? capa;
-  String pontuacao;
+  String capaUrl;
+  double pontuacao;
 
   SerieModel({
-    required this.idUser,
+    this.id,
     required this.nome,
     required this.genero,
     required this.descricao,
-    this.capa,
+    required this.capaUrl,
     required this.pontuacao,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'idUser': idUser,
       'nome': nome,
       'genero': genero,
       'descricao': descricao,
-      'capa': capa?.path,
+      'capaUrl': capaUrl,
       'pontuacao': pontuacao,
     };
   }
 
   factory SerieModel.fromMap(Map<String, dynamic> map) {
     return SerieModel(
-      idUser: map['idUser'],
+      id: map['id'],
       nome: map['nome'],
       genero: map['genero'],
       descricao: map['descricao'],
-      capa: map['capa'] != null ? File(map['capa']) : null,
+      capaUrl: map['capaUrl'],
       pontuacao: map['pontuacao'].toDouble(),
     );
   }

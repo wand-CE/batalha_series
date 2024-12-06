@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'controllers/my_series_controller.dart';
 import 'controllers/register_serie_controller.dart';
 import 'firebase_options.dart';
 
@@ -18,7 +17,6 @@ void main() async {
   final registerSerieController = Get.put(RegisterSerieController());
   final databaseController = Get.put(DatabaseController());
   final getSeriesController = Get.put(GetSeriesController());
-  final mySeriesController = Get.put(MySeriesController());
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,

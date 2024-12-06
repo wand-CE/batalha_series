@@ -72,7 +72,7 @@ class RegisterSeriePage extends StatelessWidget {
               ),
               SizedBox(height: 15),
               ElevatedButton(
-                onPressed: registerSerieController.salvarSerie,
+                onPressed: registerSerieController.saveSerie,
                 child: Text('Salvar'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,

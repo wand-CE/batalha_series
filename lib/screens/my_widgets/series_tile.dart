@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../models/serie_model.dart';
 
 class SeriesTile extends StatelessWidget {
-  final String countryFlag;
-  final String countryName;
-  final String countryLatLng;
-  final String countryMap;
+  final SerieModel serie;
   final VoidCallback buttonFunction;
+  final String defaultImageUrl;
 
   const SeriesTile({
     super.key,
-    required this.countryFlag,
-    required this.countryName,
-    required this.countryLatLng,
-    required this.countryMap,
+    required this.serie,
     required this.buttonFunction,
+    this.defaultImageUrl = 'https://via.placeholder.com/150', // Imagem padrão
   });
 
   @override
   Widget build(BuildContext context) {
+    final isUrlValid = GetUtils.isURL(serie.capaUrl);
+
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Container(
@@ -34,22 +34,33 @@ class SeriesTile extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           leading: Image.network(
-            countryFlag,
+            isUrlValid ? serie.capaUrl : defaultImageUrl,
             width: 70,
+            errorBuilder: (context, error, stackTrace) => Icon(
+              Icons.broken_image,
+              size: 70,
+              color: Colors.grey,
+            ),
           ),
           title: Text(
-            countryName,
+            serie.nome,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Latitude/Longitude $countryLatLng"),
-              SizedBox(height: 10),
-              Text("$countryMap"),
+              Text("Gênero: ${serie.genero}"),
+              SizedBox(height: 5),
+              // Text("Descrição: ${serie.descricao}"),
+              // SizedBox(height: 10),
+              Text("Pontuação: ${serie.pontuacao.toStringAsFixed(1)}"),
             ],
           ),
-          onTap: buttonFunction,
+          trailing: IconButton(
+            icon: Icon(Icons.delete_outline),
+            color: Colors.red,
+            onPressed: buttonFunction,
+          ),
         ),
       ),
     );
