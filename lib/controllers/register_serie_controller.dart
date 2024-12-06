@@ -1,16 +1,18 @@
-import 'package:batalha_series/models/serie_model.dart';
-import 'package:batalha_series/screens/home_page.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
+import '../screens/home_page.dart';
 import 'database_controller.dart';
 import 'get_series_controller.dart';
 
 class RegisterSerieController extends GetxController {
-  var nome = ''.obs;
-  var genero = ''.obs;
-  var descricao = ''.obs;
-  var pontuacao = ''.obs;
-  var capaUrl = ''.obs;
+  final formKey = GlobalKey<FormState>();
+
+  TextEditingController nomeController = TextEditingController();
+  TextEditingController generoController = TextEditingController();
+  TextEditingController descricaoController = TextEditingController();
+  TextEditingController pontuacaoController = TextEditingController();
+  TextEditingController capaUrlController = TextEditingController();
 
   bool _isNumeric(String str) {
     if (str.isEmpty) return false;
@@ -18,33 +20,23 @@ class RegisterSerieController extends GetxController {
     return n != null;
   }
 
-  void setPontuacao(String value) {
-    if (value.isEmpty) {
-      pontuacao.value = '';
-    } else {
-      double? numValue = double.tryParse(value);
-      if (numValue != null && numValue >= 1 && numValue <= 10) {
-        pontuacao.value = value; // Atualiza a pontuação
-      }
-    }
+  void cleanFields() {
+    nomeController.text = '';
+    generoController.text = '';
+    descricaoController.text = '';
+    capaUrlController.text = '';
   }
 
-  // Método para salvar os dados
+  // Método para salvar a série no banco de dados
   Future<void> saveSerie() async {
-    if (nome.value.isNotEmpty &&
-        genero.value.isNotEmpty &&
-        descricao.value.isNotEmpty &&
-        pontuacao.value.isNotEmpty &&
-        capaUrl.value.isNotEmpty) {
+    if (formKey.currentState?.validate() ?? false) {
       final serieMap = {
-        'nome': nome.value,
-        'genero': genero.value,
-        'descricao': descricao.value,
-        'capaUrl': capaUrl.value,
-        'pontuacao': pontuacao.value,
+        'nome': nomeController.text,
+        'genero': generoController.text,
+        'descricao': descricaoController.text,
+        'capaUrl': capaUrlController.text,
+        'pontuacao': '0',
       };
-
-      print('Valor ${pontuacao.value}');
 
       final databaseController = Get.find<DatabaseController>();
 
@@ -53,14 +45,15 @@ class RegisterSerieController extends GetxController {
       if (isSaved) {
         final getSeriesController = Get.find<GetSeriesController>();
         getSeriesController.getSeries();
-        Get.back();
+        Get.off(() => HomePage());
         Get.snackbar("Série", "Série cadastrada com sucesso!");
+        cleanFields();
         return;
       } else {
         Get.snackbar("Erro", "Não foi possível cadastrar a série!");
       }
     } else {
-      Get.snackbar("Erro", "Preencha todos os campos!");
+      Get.snackbar("Erro", "Arrume os erros necessários!");
     }
   }
 }

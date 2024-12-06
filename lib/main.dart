@@ -1,3 +1,4 @@
+import 'package:batalha_series/controllers/battle_controller.dart';
 import 'package:batalha_series/controllers/database_controller.dart';
 import 'package:batalha_series/controllers/get_series_controller.dart';
 import 'package:batalha_series/screens/home_page.dart';
@@ -17,6 +18,7 @@ void main() async {
   final registerSerieController = Get.put(RegisterSerieController());
   final databaseController = Get.put(DatabaseController());
   final getSeriesController = Get.put(GetSeriesController());
+  final battleController = Get.put(BattleController());
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,

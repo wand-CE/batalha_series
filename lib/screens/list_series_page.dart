@@ -3,7 +3,6 @@ import 'package:batalha_series/controllers/get_series_controller.dart';
 import 'package:batalha_series/models/serie_model.dart';
 import 'package:batalha_series/screens/my_widgets/series_tile.dart';
 import 'package:batalha_series/screens/register_serie_page.dart';
-import 'package:batalha_series/services/operations_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,9 +16,10 @@ class ListSeriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getSeriesController.getSeries();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Séries cadastradas'),
+        title: const Text('Ranking'),
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
         foregroundColor: Colors.white,

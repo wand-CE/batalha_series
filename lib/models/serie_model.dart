@@ -7,7 +7,7 @@ class SerieModel {
   String genero;
   String descricao;
   String capaUrl;
-  double pontuacao;
+  int pontuacao;
 
   SerieModel({
     this.id,
@@ -29,13 +29,18 @@ class SerieModel {
   }
 
   factory SerieModel.fromMap(Map<String, dynamic> map) {
+    int parseInt(dynamic value) => int.tryParse(value.toString()) ?? 0;
+
+    int pontuacao = parseInt(map['pontuacao']);
+    int id = parseInt(map['id']);
+
     return SerieModel(
-      id: map['id'],
+      id: id,
       nome: map['nome'],
       genero: map['genero'],
       descricao: map['descricao'],
       capaUrl: map['capaUrl'],
-      pontuacao: map['pontuacao'].toDouble(),
+      pontuacao: pontuacao,
     );
   }
 }

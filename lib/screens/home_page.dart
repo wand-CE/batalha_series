@@ -1,4 +1,5 @@
 import 'package:batalha_series/controllers/get_series_controller.dart';
+import 'package:batalha_series/screens/battle_page.dart';
 import 'package:batalha_series/screens/list_series_page.dart';
 import 'package:batalha_series/screens/register_serie_page.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,11 @@ class HomePage extends StatelessWidget {
         child: ListView(
           children: [
             ElevatedButton.icon(
-              onPressed: () => Get.to(ListSeriesPage()),
-              label: Text('Séries Cadastradas'),
+              onPressed: () => Get.to(() => ListSeriesPage()),
+              label: Text('Ranking'),
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () => Get.to(() => BattlePage()),
               label: Text('Batalhar'),
             ),
             ElevatedButton.icon(

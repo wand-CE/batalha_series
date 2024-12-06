@@ -53,7 +53,7 @@ class SeriesTile extends StatelessWidget {
               SizedBox(height: 5),
               // Text("Descrição: ${serie.descricao}"),
               // SizedBox(height: 10),
-              Text("Pontuação: ${serie.pontuacao.toStringAsFixed(1)}"),
+              Text("Pontuação: ${serie.pontuacao}"),
             ],
           ),
           trailing: IconButton(

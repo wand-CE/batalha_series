@@ -1,4 +1,4 @@
-import 'package:batalha_series/services/operations_database.dart';
+import 'package:batalha_series/db/operations_database.dart';
 import 'package:get/get.dart';
 
 import '../models/serie_model.dart';
@@ -16,5 +16,9 @@ class DatabaseController extends GetxController {
 
   Future<List<SerieModel>> getSeries() async {
     return operationsDatabase.getSeries();
+  }
+
+  Future<bool> updatePontuacao(SerieModel serie) async {
+    return operationsDatabase.updatePontuacao(serie);
   }
 }
