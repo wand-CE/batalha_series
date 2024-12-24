@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'package:get/get.dart';
-
 class SerieModel {
   int? id;
   String nome;

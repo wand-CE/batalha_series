@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/home_page.dart';
 import 'database_controller.dart';
-import 'get_series_controller.dart';
+import 'series_controller.dart';
 
 class RegisterSerieController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -14,10 +13,10 @@ class RegisterSerieController extends GetxController {
   TextEditingController pontuacaoController = TextEditingController();
   TextEditingController capaUrlController = TextEditingController();
 
-  bool _isNumeric(String str) {
-    if (str.isEmpty) return false;
-    final num? n = num.tryParse(str);
-    return n != null;
+  bool _isNumeric(String text) {
+    if (text.isEmpty) return false;
+    final num? newNumber = num.tryParse(text);
+    return newNumber != null;
   }
 
   void cleanFields() {
@@ -43,9 +42,9 @@ class RegisterSerieController extends GetxController {
       final isSaved = await databaseController.addSerie(serieMap);
 
       if (isSaved) {
-        final getSeriesController = Get.find<GetSeriesController>();
+        final getSeriesController = Get.find<SeriesController>();
         getSeriesController.getSeries();
-        Get.off(() => HomePage());
+        Get.back();
         Get.snackbar("Série", "Série cadastrada com sucesso!");
         cleanFields();
         return;

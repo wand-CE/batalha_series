@@ -5,19 +5,15 @@ import '../../models/serie_model.dart';
 class SeriesTile extends StatelessWidget {
   final SerieModel serie;
   final VoidCallback buttonFunction;
-  final String defaultImageUrl;
 
   const SeriesTile({
     super.key,
     required this.serie,
     required this.buttonFunction,
-    this.defaultImageUrl = 'https://via.placeholder.com/150', // Imagem padrão
   });
 
   @override
   Widget build(BuildContext context) {
-    final isUrlValid = GetUtils.isURL(serie.capaUrl);
-
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Container(
@@ -34,10 +30,10 @@ class SeriesTile extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           leading: Image.network(
-            isUrlValid ? serie.capaUrl : defaultImageUrl,
+            serie.capaUrl,
             width: 70,
             errorBuilder: (context, error, stackTrace) => Icon(
-              Icons.broken_image,
+              Icons.image,
               size: 70,
               color: Colors.grey,
             ),

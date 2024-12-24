@@ -1,11 +1,11 @@
-import 'package:batalha_series/controllers/battle_controller.dart';
 import 'package:batalha_series/controllers/database_controller.dart';
-import 'package:batalha_series/controllers/get_series_controller.dart';
-import 'package:batalha_series/screens/home_page.dart';
+import 'package:batalha_series/controllers/series_controller.dart';
+import 'package:batalha_series/screens/list_series_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'controllers/my_animation_controller.dart';
 import 'controllers/register_serie_controller.dart';
 import 'firebase_options.dart';
 
@@ -17,11 +17,11 @@ void main() async {
 
   final registerSerieController = Get.put(RegisterSerieController());
   final databaseController = Get.put(DatabaseController());
-  final getSeriesController = Get.put(GetSeriesController());
-  final battleController = Get.put(BattleController());
+  final getSeriesController = Get.put(SeriesController());
+  final myAnimationController = Get.put(MyAnimationController());
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomePage(),
+    home: ListSeriesPage(),
   ));
 }
